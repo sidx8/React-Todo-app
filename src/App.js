@@ -1,53 +1,11 @@
 import React from 'react';
-import { Switch, Typography, Grid, Button, Paper, TextField } from '@material-ui/core';
+import { Switch, Typography, Grid, Button, Paper } from '@material-ui/core';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import FlareRoundedIcon from '@material-ui/icons/FlareRounded';
 import Brightness3Icon from '@material-ui/icons/Brightness3';
 import './App.css';
-
-function Todo({ todo, index, completeTodo, removeTodo }) {
-  return (
-    <div
-      className="todo"
-      style={{ textDecoration: todo.isCompleted ? "line-through" : "" }}
-    >
-      {todo.text}
-
-      <div>
-        <button onClick={() => completeTodo(index)}>Complete</button>
-        <button onClick={() => removeTodo(index)}>x</button>
-      </div>
-    </div>
-  );
-}
-
-function TodoForm({ addTodo }) {
-  const [value, setValue] = React.useState("");
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (!value) return;
-    addTodo(value);
-    setValue("");
-  };
-
-  return (
-   /* <form onSubmit={handleSubmit}>
-         <TextField className="input" type="text" id="outlined-basic" label="Add a Task" variant="outlined" value={value} onChange={e => setValue(e.targeti.value)} />
-    </form>
-   */
-   <form onSubmit={handleSubmit}>
-     <TextField className="input" type="text" id="outlined-basic" label="Add a Task" variant="outlined" value={value} onChange={e => setValue(e.targeti.value)} />
-      <input
-        type="text"
-        className="input"
-        value={value}
-        onChange={e => setValue(e.target.value)}
-      />
-    </form>
-  );
-}  
-
+import Todo from './Todo'
+import TodoForm from './Todoform'
 
 function App() {
   const [todos, setTodos] = React.useState([
