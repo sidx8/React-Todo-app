@@ -20,28 +20,22 @@ req.onreadystatechange = async () => {
   }
 };
 
-/*
-req.onreadystatechange = () => {
-  if (req.readyState === XMLHttpRequest.DONE) {
-    console.log(req.responseText);
-  }
-};
-
-req.open("GET", "https://api.jsonbin.io/b/5f4f9d93993a2e110d3cd3e7", true);
-req.setRequestHeader("secret-key", "$2b$10$VmLMPdNh2NT6iLKlBYwVA.LfjkqZhaFrXdndRC/lVeb3mW3Qz040q");
-req.send();
-
-req.open("POST", "https://api.jsonbin.io/b", true);
-req.setRequestHeader("Content-Type", "application/json");
-req.setRequestHeader("collection-id", "5f4fad1c993a2e110d3cdd26");
-req.setRequestHeader("secret-key", "$2b$10$VmLMPdNh2NT6iLKlBYwVA.LfjkqZhaFrXdndRC/lVeb3mW3Qz040q");
-req.setRequestHeader("name", msg);
-req.send('{"Task":"bitches"}');
-*/
-
 function TodoList() {
   const jsonbin = new JSONbin('$2b$10$VmLMPdNh2NT6iLKlBYwVA.LfjkqZhaFrXdndRC/lVeb3mW3Qz040q');
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState([
+    {
+      id: 327498733343,
+      text:"this is hardcoded"
+    },
+    {
+      id: 327348733343,
+      text:"this is also hardcoded"
+    },
+    {
+      id: 327578733343,
+      text:"and so is this"
+    }
+  ]);
 
   
   const addTodo = todo => {
