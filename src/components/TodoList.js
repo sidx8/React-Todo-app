@@ -7,36 +7,16 @@ import JSONbin from '../../node_modules/jsonbin-io.js/src/jsonbin-io.js';
 import TodoForm from './TodoForm';
 import Todo from './Todo';
 
-
-let req = new XMLHttpRequest();
-var response = [];
-req.open("GET", "https://api.jsonbin.io/e/collection/5f4fad1c993a2e110d3cdd26/all-bins", true);
-req.setRequestHeader("secret-key", "$2b$10$VmLMPdNh2NT6iLKlBYwVA.LfjkqZhaFrXdndRC/lVeb3mW3Qz040q");
-req.send();
-req.onreadystatechange = async () => {
-  if (req.readyState === XMLHttpRequest.DONE) {
-   response = await req.responseText;
-   console.log(JSON.parse(response).records);
-  }
-};
-
+/*
+(async () => {
+  response.map( async()=>{
+    const data = await jsonbin.read('5f4fae63514ec5112d14b5c7', 0);
+    console.log(data);
+  })
+})();
+*/
 function TodoList() {
-  const jsonbin = new JSONbin('$2b$10$VmLMPdNh2NT6iLKlBYwVA.LfjkqZhaFrXdndRC/lVeb3mW3Qz040q');
-  const [todos, setTodos] = useState([
-    {
-      id: 327498733343,
-      text:"this is hardcoded"
-    },
-    {
-      id: 327348733343,
-      text:"this is also hardcoded"
-    },
-    {
-      id: 327578733343,
-      text:"and so is this"
-    }
-  ]);
-
+  const [todos, setTodos] = useState(0);
   
   const addTodo = todo => {
     if (!todo.text || /^\s*$/.test(todo.text)) {
@@ -48,6 +28,30 @@ function TodoList() {
     console.log(...todos);
   };
 
+
+  const jsonbin = new JSONbin('$2b$10$8B3EUuMFFRhCUNXCAwsxcegeivgaavjlx1ZwrdvHGJXYqI0oIjWSS');
+  let req = new XMLHttpRequest();
+  var response = [];
+  req.open("GET", "https://api.jsonbin.io/e/collection/5f5139a9993a2e110d3db04e/all-bins", true);
+  req.setRequestHeader("secret-key", "$2b$10$8B3EUuMFFRhCUNXCAwsxcegeivgaavjlx1ZwrdvHGJXYqI0oIjWSS");
+  req.send();
+  req.onreadystatechange = async () => {
+  if (req.readyState === XMLHttpRequest.DONE) {
+    response = await JSON.parse(req.responseText);
+    let ids = [...response.records];
+    console.log(ids);
+    ids.forEach( async({id})=>{
+     var task = [await jsonbin.read(id,0)];
+    //  setTodos(task);
+    console.log(task); 
+    },
+    );
+   // setTodos(task);
+    
+  }
+};
+  
+  
   const updateTodo = (todoId, newValue) => {
     if (!newValue.text || /^\s*$/.test(newValue.text)) {
       return;
