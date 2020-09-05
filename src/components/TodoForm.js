@@ -18,6 +18,26 @@ function TodoForm(props) {
     setInput(e.target.value);
   };
 
+  const handleUpdateSubmit = e => {
+    e.preventDefault();
+    (async () => {
+      const data = {Task: input};
+      try {
+        const id = await jsonbin.create(data, '5f5139a9993a2e110d3db04e', input);
+        console.log(id);
+        props.onSubmit({
+          text: input
+        });
+      
+        setInput(''); 
+      }
+      catch (err) {
+        console.error(err.message);
+      }
+    })();
+         
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
     (async () => {
@@ -40,7 +60,7 @@ function TodoForm(props) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='todo-form'>
+    <form onSubmit={props.edit ? handleUpdateSubmit : handleSubmit} className='todo-form'>
       {props.edit ? (
         <>
         <TextField
@@ -51,7 +71,7 @@ function TodoForm(props) {
         label="Update you task"
         onChange={handleChange} 
         />
-        <Button onClick={handleSubmit} variant="contained" color="primary">
+        <Button onClick={handleUpdateSubmit} variant="contained" color="primary">
         Update 
       </Button>
         </>

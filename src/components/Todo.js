@@ -21,12 +21,11 @@ const Todo = ({ todos, removeTodo, updateTodo }) => {
     return <TodoForm edit={edit} onSubmit={submitUpdate} />;
   }
 
-  
+  if(todos.length <= 0 ){
+   return <div> Loading.. </div>
+  }
   return todos.map((todo, index) => (
-    <div
-      className={todo.isComplete ? 'todo-row complete' : 'todo-row'}
-      key={index}
-    >
+    <div key={index}>
         {todo.text}
       <div className='icons'>
         <RiCloseCircleLine
