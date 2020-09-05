@@ -7,50 +7,45 @@ import JSONbin from '../../node_modules/jsonbin-io.js/src/jsonbin-io.js';
 import TodoForm from './TodoForm';
 import Todo from './Todo';
 
-/*
-(async () => {
-  response.map( async()=>{
-    const data = await jsonbin.read('5f4fae63514ec5112d14b5c7', 0);
-    console.log(data);
-  })
-})();
-*/
+
+const jsonbin = new JSONbin('$2b$10$8B3EUuMFFRhCUNXCAwsxcegeivgaavjlx1ZwrdvHGJXYqI0oIjWSS');
+let req = new XMLHttpRequest();
+var response = [];
+req.open("GET", "https://api.jsonbin.io/e/collection/5f5139a9993a2e110d3db04e/all-bins", true);
+req.setRequestHeader("secret-key", "$2b$10$8B3EUuMFFRhCUNXCAwsxcegeivgaavjlx1ZwrdvHGJXYqI0oIjWSS");
+req.send();
+    
+
 function TodoList() {
-  const [todos, setTodos] = useState(0);
-  
-  const addTodo = todo => {
-    if (!todo.text || /^\s*$/.test(todo.text)) {
-      return;
-    }
-
-    const newTodos = [todo, ...todos];
-    setTodos(newTodos);
-    console.log(...todos);
-  };
-
-
-  const jsonbin = new JSONbin('$2b$10$8B3EUuMFFRhCUNXCAwsxcegeivgaavjlx1ZwrdvHGJXYqI0oIjWSS');
-  let req = new XMLHttpRequest();
-  var response = [];
-  req.open("GET", "https://api.jsonbin.io/e/collection/5f5139a9993a2e110d3db04e/all-bins", true);
-  req.setRequestHeader("secret-key", "$2b$10$8B3EUuMFFRhCUNXCAwsxcegeivgaavjlx1ZwrdvHGJXYqI0oIjWSS");
-  req.send();
-  req.onreadystatechange = async () => {
+  const [todos, setTodos] = useState([]);
+   
+ 
+  req.onreadystatechange = async (todo) => {
   if (req.readyState === XMLHttpRequest.DONE) {
     response = await JSON.parse(req.responseText);
     let ids = [...response.records];
     console.log(ids);
-    ids.forEach( async({id})=>{
-     var task = [await jsonbin.read(id,0)];
-    //  setTodos(task);
-    console.log(task); 
-    },
-    );
-   // setTodos(task);
-    
+    const getData =  () => {
+      return ids.map( async({id})=>{
+        todo = {     
+         text :(await jsonbin.read(id,0)).Task,
+         id : id,
+        }
+       addTodo(todo);   
+      })}
+      getData();
   }
 };
-  
+
+
+const addTodo = todo => {
+  if (!todo.text || /^\s*$/.test(todo.text)) {
+    return;
+  }
+  todos.push(todo);
+  setTodos([...todos]);
+  console.log(todos);
+}; 
   
   const updateTodo = (todoId, newValue) => {
     if (!newValue.text || /^\s*$/.test(newValue.text)) {
@@ -83,15 +78,7 @@ function TodoList() {
     setTodos(removedArr);
   };
 
-  const completeTodo = id => {
-    let updatedTodos = todos.map(todo => {
-      if (todo.id === id) {
-        todo.isComplete = !todo.isComplete;
-      }
-      return todo;
-    });
-    setTodos(updatedTodos);
-  };
+  
   
   const [darkmode, SetDarkmode] = useState(false);
 
@@ -114,7 +101,6 @@ function TodoList() {
       <TodoForm onSubmit={addTodo} />
       <Todo
         todos={todos}
-        completeTodo={completeTodo}
         removeTodo={removeTodo}
         updateTodo={updateTodo}
       />

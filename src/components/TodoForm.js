@@ -29,6 +29,7 @@ function TodoForm(props) {
           id: id,
           text: input
         });
+      
         setInput(''); //-> '5c4cc6e7a1021c254834adab'
       }
       catch (err) {
