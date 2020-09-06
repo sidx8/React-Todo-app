@@ -98,7 +98,7 @@ const addTodo = todo => {
       <Grid container direction="column" alignItems="center">
         <Grid item container direction="row" justify="center" alignItems="center">
         <ThemeProvider theme={theme}>
-        <Paper style={{margin:"30px", padding:"3vh 2vh 3vh 3vh",height: "70vh"}}>
+        <Paper style={{margin:"30px", paddingTop:"3vh" , paddingRight:"3vh", paddingLeft:"2vh"}}>
           <Grid item xs={12} container direction="row" justify="flex-end" alignItems="center">  
             <FlareRoundedIcon />  
               <Switch checked={darkmode} onChange={() => SetDarkmode(!darkmode)} />
