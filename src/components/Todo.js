@@ -62,24 +62,6 @@ const Todo = ({ todos, removeTodo, updateTodo }) => {
           </List>
         )
       )
-  
-
-  /*
-  return todos.map((todo, index) => (
-    <div key={index}>
-        {todo.text}
-      <div className='icons'>
-        <RiCloseCircleLine
-          onClick={() => removeTodo(todo.id)}
-          className='delete-icon'
-        />
-        <TiEdit
-          onClick={() => setEdit({ id: todo.id, value: todo.text })}
-          className='edit-icon'
-        />
-      </div>
-    </div>
-  ));*/
 };
 
 export default Todo;

@@ -104,7 +104,7 @@ const addTodo = todo => {
               <Switch checked={darkmode} onChange={() => SetDarkmode(!darkmode)} />
             <Brightness3Icon />
           </Grid>
-          <Grid item >  
+          <Grid item>  
             <Typography variant="h3">Todo app</Typography>
           </Grid> 
           <Grid item> 
