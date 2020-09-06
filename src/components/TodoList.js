@@ -23,18 +23,18 @@ function TodoList() {
   req.onreadystatechange = async (todo) => {
   if (req.readyState === XMLHttpRequest.DONE) {
     try{
-    response = await JSON.parse(req.responseText);
-    let ids = [...response.records];
-    console.log(ids);
-    const getData =  () => {
-      return ids.map( async({id})=>{
-        todo = {     
-         text :(await jsonbin.read(id,0)).Task,
-         id : id,
-        }
-       addTodo(todo);   
-      })}
-      getData();
+      response = await JSON.parse(req.responseText);
+        let ids = [...response.records];
+          console.log(ids);
+      const getData =  () => {
+        return ids.map( async({id})=>{
+            todo = {     
+            text :(await jsonbin.read(id,0)).Task,
+            id : id,
+            }
+          addTodo(todo);   
+          })}
+          getData();
     }
       catch (err){
        console.log(err.message);
@@ -98,19 +98,19 @@ const addTodo = todo => {
       <Grid container direction="column" alignItems="center">
         <Grid item container direction="row" justify="center" alignItems="center">
         <ThemeProvider theme={theme}>
-        <Paper style={{margin:"30px", paddingTop:"3vh" , paddingRight:"3vh", paddingLeft:"2vh"}}>
+        <Paper style={{marginTop:"120px", padding:"3vh"}}>
           <Grid item xs={12} container direction="row" justify="flex-end" alignItems="center">  
             <FlareRoundedIcon />  
               <Switch checked={darkmode} onChange={() => SetDarkmode(!darkmode)} />
             <Brightness3Icon />
           </Grid>
           <Grid item >  
-            <Typography variant="h3">ToDo App</Typography>
+            <Typography variant="h3">Todo app</Typography>
           </Grid> 
           <Grid item> 
             <TodoForm onSubmit={addTodo} />
           </Grid>
-          <Grid item>
+          <Grid item style={{paddingTop:"1vh"}}>
             <Todo
               todos={todos}
               removeTodo={removeTodo}
