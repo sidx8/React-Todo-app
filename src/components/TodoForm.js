@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Button,TextField } from '@material-ui/core';
+import { Button, TextField, Grid } from '@material-ui/core';
+import AddRoundedIcon from '@material-ui/icons/AddRounded';
 import JSONbin from '../../node_modules/jsonbin-io.js/src/jsonbin-io.js';
 
 
@@ -63,32 +64,43 @@ function TodoForm(props) {
     <form onSubmit={props.edit ? handleUpdateSubmit : handleSubmit} className='todo-form'>
       {props.edit ? (
         <>
+        <Grid container direction="row" spacing={2} alignItems="center">
+         <Grid item>
         <TextField
          ref={inputRef}
         className="input"
         value={input}
-        variant="outlined"
+        variant="standard"
         label="Update you task"
         onChange={handleChange} 
         />
-        <Button onClick={handleUpdateSubmit} variant="contained" color="primary">
-        Update 
+        </Grid>
+        <Grid item>
+        <Button onClick={handleUpdateSubmit} startIcon={<AddRoundedIcon />} variant="contained" color="default">
+      Update your task
       </Button>
+      </Grid>
+      </Grid>
         </>
       ) : (
         <>
+        <Grid container direction="row" spacing={2} alignItems="center">
+         <Grid item>
          <TextField
          ref={inputRef}
         className="input"
         value={input}
-        variant="outlined"
+        variant="standard"
         label="add a task"
         onChange={handleChange} 
         />
-        
-        <Button onClick={handleSubmit} variant="contained" color="primary">
+        </Grid>
+        <Grid item>
+        <Button onClick={handleSubmit} startIcon={<AddRoundedIcon />} variant="contained" color="default">
       Add a task
       </Button>
+      </Grid>
+      </Grid>
       </>
       )}
     </form>

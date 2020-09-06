@@ -18,7 +18,7 @@ req.send();
 function TodoList() {
   const [todos, setTodos] = useState([]);
    
-/* 
+
   var response = [];
   req.onreadystatechange = async (todo) => {
   if (req.readyState === XMLHttpRequest.DONE) {
@@ -42,7 +42,7 @@ function TodoList() {
       }
   }
 };
-*/
+
 
 const addTodo = todo => {
   if (!todo.text || /^\s*$/.test(todo.text)) {
@@ -95,17 +95,17 @@ const addTodo = todo => {
   });
 
   return (
-      <Grid container direction="column" spacing={0} alignItems="center">
+      <Grid container direction="column" alignItems="center">
         <Grid item container direction="row" justify="center" alignItems="center">
         <ThemeProvider theme={theme}>
-        <Paper style={{margin:"30px", padding:"8vh", height: "50vh"}}>
-          <Grid item xs={9} container direction="row" justify="flex-end" alignItems="center">  
+        <Paper style={{margin:"30px", padding:"3vh 2vh 3vh 3vh",height: "70vh"}}>
+          <Grid item xs={12} container direction="row" justify="flex-end" alignItems="center">  
             <FlareRoundedIcon />  
               <Switch checked={darkmode} onChange={() => SetDarkmode(!darkmode)} />
             <Brightness3Icon />
           </Grid>
           <Grid item >  
-            <Typography variant="h2">ToDo App</Typography>
+            <Typography variant="h3">ToDo App</Typography>
           </Grid> 
           <Grid item> 
             <TodoForm onSubmit={addTodo} />
