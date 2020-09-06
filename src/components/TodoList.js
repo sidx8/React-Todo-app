@@ -10,7 +10,6 @@ import Todo from './Todo';
 
 const jsonbin = new JSONbin('$2b$10$8B3EUuMFFRhCUNXCAwsxcegeivgaavjlx1ZwrdvHGJXYqI0oIjWSS');
 let req = new XMLHttpRequest();
-var response = [];
 req.open("GET", "https://api.jsonbin.io/e/collection/5f5139a9993a2e110d3db04e/all-bins", true);
 req.setRequestHeader("secret-key", "$2b$10$8B3EUuMFFRhCUNXCAwsxcegeivgaavjlx1ZwrdvHGJXYqI0oIjWSS");
 req.send();
@@ -19,9 +18,11 @@ req.send();
 function TodoList() {
   const [todos, setTodos] = useState([]);
    
- 
+/* 
+  var response = [];
   req.onreadystatechange = async (todo) => {
   if (req.readyState === XMLHttpRequest.DONE) {
+    try{
     response = await JSON.parse(req.responseText);
     let ids = [...response.records];
     console.log(ids);
@@ -34,9 +35,14 @@ function TodoList() {
        addTodo(todo);   
       })}
       getData();
+    }
+      catch (err){
+       console.log(err.message);
+       window.location.reload();
+      }
   }
 };
-
+*/
 
 const addTodo = todo => {
   if (!todo.text || /^\s*$/.test(todo.text)) {
@@ -89,24 +95,33 @@ const addTodo = todo => {
   });
 
   return (
-    <ThemeProvider theme={theme}>
-      <Paper style={{ height: "100vh", margin: "0vh"}}>
-      <Grid container direction="column" alignItems="center">
-        <Grid container direction="row" justify="flex-end" alignItems="center">  
-        <FlareRoundedIcon />  
-        <Switch checked={darkmode} onChange={() => SetDarkmode(!darkmode)} />
-        <Brightness3Icon />
-        </Grid>  
-        <Typography variant="h2">ToDo App</Typography> 
-      <TodoForm onSubmit={addTodo} />
-      <Todo
-        todos={todos}
-        removeTodo={removeTodo}
-        updateTodo={updateTodo}
-      />
-      </Grid>
+      <Grid container direction="column" spacing={0} alignItems="center">
+        <Grid item container direction="row" justify="center" alignItems="center">
+        <ThemeProvider theme={theme}>
+        <Paper style={{margin:"30px", padding:"8vh", height: "50vh"}}>
+          <Grid item xs={9} container direction="row" justify="flex-end" alignItems="center">  
+            <FlareRoundedIcon />  
+              <Switch checked={darkmode} onChange={() => SetDarkmode(!darkmode)} />
+            <Brightness3Icon />
+          </Grid>
+          <Grid item >  
+            <Typography variant="h2">ToDo App</Typography>
+          </Grid> 
+          <Grid item> 
+            <TodoForm onSubmit={addTodo} />
+          </Grid>
+          <Grid item>
+            <Todo
+              todos={todos}
+              removeTodo={removeTodo}
+              updateTodo={updateTodo}
+            />
+          </Grid>
       </Paper>
-    </ThemeProvider>  
+      </ThemeProvider>  
+      </Grid>
+    </Grid>
+    
   );
 }
 
