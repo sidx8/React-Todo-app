@@ -1,3 +1,3 @@
-# React Todo App
+## Todo App
 
-A To-do app built useing React and google material ui
+# A To-do app built useing React, google material ui and jsonbin.io api for storage.
