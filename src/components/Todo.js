@@ -21,6 +21,7 @@ const Todo = ({ todos, removeTodo, updateTodo }) => {
     id: null,
     value: ''
   });
+  
 
   const submitUpdate = value => {
     updateTodo(edit.id, value);
@@ -30,8 +31,9 @@ const Todo = ({ todos, removeTodo, updateTodo }) => {
     });
   };
 
-  if (edit.id) {
-    return <TodoForm edit={edit} onSubmit={submitUpdate} />;
+
+if (edit.id) {
+  return <TodoForm edit={edit} onSubmit={submitUpdate} />; 
   }
 
   if(todos.length <= 0 ){
@@ -46,8 +48,7 @@ const Todo = ({ todos, removeTodo, updateTodo }) => {
    }
 
   return todos.map((todo, index) => (
-    <List className={classes.root}>
-      
+    <List key={index} className={classes.root}> 
           <ListItem key={index} role={undefined} dense button>
             <ListItemText primary={todo.text} />
             <ListItemSecondaryAction>

@@ -8,10 +8,10 @@ import TodoForm from './TodoForm';
 import Todo from './Todo';
 
 
-const jsonbin = new JSONbin('$2b$10$8B3EUuMFFRhCUNXCAwsxcegeivgaavjlx1ZwrdvHGJXYqI0oIjWSS');
+const jsonbin = new JSONbin('$2b$10$h8/yUbhnIsOQsM0NOsHR4OKqt/Nd0kPqs4AgcvtcJ2yy7fqwxSami');
 let req = new XMLHttpRequest();
-req.open("GET", "https://api.jsonbin.io/e/collection/5f5139a9993a2e110d3db04e/all-bins", true);
-req.setRequestHeader("secret-key", "$2b$10$8B3EUuMFFRhCUNXCAwsxcegeivgaavjlx1ZwrdvHGJXYqI0oIjWSS");
+req.open("GET", "https://api.jsonbin.io/e/collection/5f56aa8c993a2e110d407fef/all-bins", true);
+req.setRequestHeader("secret-key", "$2b$10$h8/yUbhnIsOQsM0NOsHR4OKqt/Nd0kPqs4AgcvtcJ2yy7fqwxSami");
 req.send();
     
 
@@ -29,7 +29,7 @@ function TodoList() {
       const getData =  () => {
         return ids.map( async({id})=>{
             todo = {     
-            text :(await jsonbin.read(id,0)).Task,
+            text :(await jsonbin.read(id,0)).text,
             id : id,
             }
           addTodo(todo);   

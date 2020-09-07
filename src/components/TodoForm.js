@@ -5,7 +5,7 @@ import JSONbin from '../../node_modules/jsonbin-io.js/src/jsonbin-io.js';
 
 
 function TodoForm(props) {
-  const jsonbin = new JSONbin('$2b$10$8B3EUuMFFRhCUNXCAwsxcegeivgaavjlx1ZwrdvHGJXYqI0oIjWSS');
+  const jsonbin = new JSONbin('$2b$10$h8/yUbhnIsOQsM0NOsHR4OKqt/Nd0kPqs4AgcvtcJ2yy7fqwxSami');
 
   const [input, setInput] = useState(props.edit ? props.edit.value : '');
 
@@ -21,12 +21,21 @@ function TodoForm(props) {
 
   const handleUpdateSubmit = e => {
     e.preventDefault();
+    props.onSubmit({
+      text: input
+    });
+    setInput('');     
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
     (async () => {
-      const data = {Task: input};
+      const data = {text: input};
       try {
-        const id = await jsonbin.create(data, '5f5139a9993a2e110d3db04e', input);
+        const id = await jsonbin.create(data, '5f56aa8c993a2e110d407fef', input);
         console.log(id);
         props.onSubmit({
+          id: id,
           text: input
         });
       
@@ -36,28 +45,6 @@ function TodoForm(props) {
         console.error(err.message);
       }
     })();
-         
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    (async () => {
-      const data = {Task: input};
-      try {
-        const id = await jsonbin.create(data, '5f5139a9993a2e110d3db04e', input);
-        console.log(id);
-        props.onSubmit({
-          id: id,
-          text: input
-        });
-      
-        setInput(''); //-> '5c4cc6e7a1021c254834adab'
-      }
-      catch (err) {
-        console.error(err.message);
-      }
-    })();
-         //-> '5c4cc6e7a1021c254834adab'
   };
 
   return (
