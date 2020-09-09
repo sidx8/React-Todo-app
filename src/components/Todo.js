@@ -18,7 +18,6 @@ const Todo = ({ todos, removeTodo, updateTodo }) => {
   const classes = useStyles();
 
   const [edit, setEdit] = useState({
-    id: null,
     value: ''
   });
   
@@ -26,7 +25,6 @@ const Todo = ({ todos, removeTodo, updateTodo }) => {
   const submitUpdate = value => {
     updateTodo(edit.id, value);
     setEdit({
-      id: null,
       value: ''
     });
   };
